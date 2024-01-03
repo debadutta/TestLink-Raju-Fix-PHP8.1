@@ -1,3 +1,17 @@
+****************************** Added this after Raju fixed the graph plotting issue ***********************************<br>
+git diff 5b8e7ec3c..a1b2ade4c --name-only<br>
+lib/functions/tlTestPlanMetrics.class.php<br>
+third_party/pchart/pChart/pChart.class<br>
+third_party/pchart/pChart/pData.class<br>
+
+Untracked files: ***Not sure how come these files got created***<br>
+  (use "git add <file>..." to include in what will be committed)<br>
+        gui/templates/tl-classic/<br>
+        gui/templates_c/generateTestCaseNumber.lock<br>
+        lib/codetrackerintegration/gitlabreporestInterface.class.php<br>
+        lib/results/testAutomationSpec.php<br>
+************************************************************************************************************************<br>
+
 # TestLink 2.0.0  - Read me
 
 ## Contents
