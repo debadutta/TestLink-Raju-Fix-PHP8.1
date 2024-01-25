@@ -46,13 +46,16 @@ if(is_null($tsInf)) {
    
       // Get labels
       // !!double current because main key is PLATFORM
-      $dummy = current(current($gui->statistics->$item));
-      if(isset($dummy['details'])) {  
-        foreach($dummy['details'] as $status_verbose => $value) {
-          $dummy['details'][$status_verbose]['qty'] = lang_get($tlCfg->results['status_label'][$status_verbose]);
-          $dummy['details'][$status_verbose]['percentage'] = "[%]";
+      if (!empty($gui->statistics->$item))
+      {
+        $dummy = current(current($gui->statistics->$item));
+        if(isset($dummy['details'])) {
+          foreach($dummy['details'] as $status_verbose => $value) {
+            $dummy['details'][$status_verbose]['qty'] = lang_get($tlCfg->results['status_label'][$status_verbose]);
+            $dummy['details'][$status_verbose]['percentage'] = "[%]";
+          }
+          $gui->columnsDefinition->$item = $dummy['details'];
         }
-        $gui->columnsDefinition->$item = $dummy['details'];
       }
     }    
   }

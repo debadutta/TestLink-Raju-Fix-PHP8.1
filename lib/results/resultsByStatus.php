@@ -522,7 +522,7 @@ function buildMailCfg(&$guiObj)
  * return tlExtTable
  *
  */
-function buildMatrix($dataSet, &$args, $options = array(), $platforms,$customFieldColumns=null)
+function buildMatrix($dataSet, &$args,array $options, $platforms,$customFieldColumns=null)
 {
   $default_options = array('bugInterfaceOn' => false,'show_platforms' => false,
                            'status_not_run' => false,'format' => FORMAT_HTML);
@@ -768,30 +768,34 @@ function createSpreadsheet($gui,$args,$media,$customFieldColumns=null)
 
   // Now process data  
   $startingRow++;
-  $qta_loops = count($gui->dataSet);
-  for ($idx = 0; $idx < $qta_loops; $idx++) {
-    $line2write = $gui->dataSet[$idx];
-    $colCounter = 0; 
-    foreach($gui->dataSet[$idx] as $ldx => $field) {
-      if( $ldx != 'bugString' || ($ldx == 'bugString' && $gui->bugInterfaceOn) )
-      {  
-        $cellID = $cellRange[$colCounter] . $startingRow; 
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue($cellID, html_entity_decode($field) );
-        $colCounter++;
+
+  if (!is_null($gui->dataSet))
+  {
+    $qta_loops = count($gui->dataSet);
+    for ($idx = 0; $idx < $qta_loops; $idx++) {
+      $line2write = $gui->dataSet[$idx];
+      $colCounter = 0;
+      foreach($gui->dataSet[$idx] as $ldx => $field) {
+        if( $ldx != 'bugString' || ($ldx == 'bugString' && $gui->bugInterfaceOn) )
+        {
+          $cellID = $cellRange[$colCounter] . $startingRow;
+          $objPHPExcel->setActiveSheetIndex(0)->setCellValue($cellID, html_entity_decode($field) );
+          $colCounter++;
+        }
+
+        // May be same processing can be applied to execution otes
+        if(($ldx == 'bugString' && $gui->bugInterfaceOn)) {
+          // To manage new line
+          // http://stackoverflow.com/questions/5960242/how-to-make-new-lines-in-a-cell-using-phpexcel
+          // http://stackoverflow.com/questions/6054444/how-to-set-auto-height-in-phpexcel
+          $objPHPExcel->setActiveSheetIndex(0)->getStyle($cellID)->getAlignment()->setWrapText(true);
+        }
       }
-      
-      // May be same processing can be applied to execution otes
-      if(($ldx == 'bugString' && $gui->bugInterfaceOn)) {
-        // To manage new line
-        // http://stackoverflow.com/questions/5960242/how-to-make-new-lines-in-a-cell-using-phpexcel
-        // http://stackoverflow.com/questions/6054444/how-to-set-auto-height-in-phpexcel
-        $objPHPExcel->setActiveSheetIndex(0)->getStyle($cellID)->getAlignment()->setWrapText(true);  
-      }  
+      $cellEnd = $cellRange[$colCounter-1] . $startingRow;
+      $startingRow++;
     }
-    $cellEnd = $cellRange[$colCounter-1] . $startingRow;
-    $startingRow++;
   }
-  
+
   // Final step
   $objPHPExcel->setActiveSheetIndex(0);
   

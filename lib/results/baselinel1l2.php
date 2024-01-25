@@ -217,6 +217,20 @@ function initializeGui(&$dbHandler,$argsObj,&$tplanMgr) {
     natsort($gui->platformSet);
   }
 
+  $gui->basehref = $_SESSION['basehref'];
+  $gui->actionSendMail = $gui->basehref .
+          "lib/results/resultsGeneral.php?format=" .
+          FORMAT_MAIL_HTML . "&tplan_id={$gui->tplan_id}" .
+          "&tproject_id={$gui->tproject_id}";
+
+  $gui->actionSpreadsheet = $gui->basehref .
+          "lib/results/resultsGeneral.php?format=" .
+          "0" . "&tplan_id={$gui->tplan_id}&spreadsheet=1".
+          "&tproject_id={$gui->tproject_id}";
+
+  $gui->mailFeedBack = new stdClass();
+  $gui->mailFeedBack->msg = '';
+
   $gui->hasPlatforms = count($gui->platformSet) >= 1 && 
                        !isset($gui->platformSet[0]);
 

@@ -98,8 +98,7 @@ $tlCfg->reports_list['baseline_l1l2'] =
         'url' => 'lib/results/baselinel1l2.php',
         'enabled' => 'all',
         'directLink' => 
-          '%slnl.php?apikey=%s&tproject_id=%s&tplan_id=%s&format=0' .
-          '&type=baseline_l1l2',
+          '%slnl.php?apikey=%s&tproject_id=%s&tplan_id=%s&format=0&type=baseline_l1l2',
         'format' => 'format_html'
 );
 

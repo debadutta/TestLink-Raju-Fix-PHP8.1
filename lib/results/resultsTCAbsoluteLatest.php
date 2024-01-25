@@ -111,7 +111,7 @@ function init_args(&$dbHandler)
     }  
   } else {
     testlinkInitPage($dbHandler,false,false,"checkRights");  
-    $args->tproject_id = isset($_SESSION['testprojectID']) ? intval($_SESSION['testprojectID']) : 0;
+    // $args->tproject_id = isset($_SESSION['testprojectID']) ? intval($_SESSION['testprojectID']) : 0;
   }
 
   if ($args->tproject_id <= 0) {

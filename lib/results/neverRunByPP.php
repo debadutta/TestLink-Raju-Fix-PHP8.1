@@ -276,11 +276,14 @@ function initializeGui(&$dbh,&$argsObj,&$tplanMgr) {
 
   // will be used when sending mail o creating spreadsheet
   $guiObj->platSet = array();
-  $pp = (array)array_flip($argsObj->platSet);
-  if( !isset($pp[0]) ) {
-    // we have platforms
-    foreach( $argsObj->platSet as $pk ) {
-      $guiObj->platSet[$pk] = $pk;
+  if (!empty($guiObj->platSet))
+  {
+    $pp = (array)array_flip($argsObj->platSet);
+    if( !isset($pp[0]) ) {
+      // we have platforms
+      foreach( $argsObj->platSet as $pk ) {
+        $guiObj->platSet[$pk] = $pk;
+      }
     }
   }
 
@@ -328,7 +331,7 @@ function buildMailCfg(&$guiObj) {
  * return tlExtTable
  *
  */
-function buildMatrix($dataSet, &$args, $options = array(), $platforms,$customFieldColumns=null) {
+function buildMatrix($dataSet, &$args,array $options, $platforms,$customFieldColumns=null) {
   $default_options = 
     array('show_platforms' => false,'format' => FORMAT_HTML);
   $options = array_merge($default_options, $options);

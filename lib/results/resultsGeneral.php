@@ -433,7 +433,7 @@ function createSpreadsheet($gui,$args,&$tplanMgr) {
     $nameKey = $target['nameKey'];
     $tcQtyKey = $target['tcQtyKey'];
 
-    if( count($target['source']) == 0 ) {
+    if( is_null($target['source']) ) {
       continue;
     }
 

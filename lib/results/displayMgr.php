@@ -159,13 +159,14 @@ function displayReport($template_file, &$smarty, $doc_format, $mailCfg = null)
       
       switch($template_file)
       {
-        case 'results/resultsGeneral.tpl'; 
+        case 'results/resultsGeneral.tpl';
+          $mf = new stdClass;
          flushHttpHeader(FORMAT_HTML, $doc_kind = 0);
          $mf->msg = $op->status_ok ? '' : lang_get('send_mail_ko');
          $mf->msg .= ' ' . $op->msg;
          $mf->title = ''; //$mailCfg->subject;
          $smarty->assign('mailFeedBack',$mf);
-        break;   
+        break;
 
         default:
           $message = $op->status_ok ? '' : lang_get('send_mail_ko');  
